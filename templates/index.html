@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tic Tac Toe</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">     
+        <style>            
+            .row {padding: 30px; text-align: center;}
+            table {border-collapse: collapse;}
+            td {border: 1px solid black; width: 150px; height:150px; font-size: 30px; text-align: center; }
+            td > a {font-size: 18px;}
+            h1 {text-align: center; padding: 20px;}
+        </style>
+    </head>
+    <body>
+        <h1>Tic Tac Toe</h1>
+        <div class="row">
+            <div class="col-lg-4 col-sm-12">      
+                {% if winner %}   
+                <h1>Player {{ turn }} wins!</h1>
+                <a href="{{ url_for('reset') }}">Try Again</a>
+                {% endif %}                    
+            </div>
+            
+            <div class="col-lg-4 col-sm-12">
+                <table>
+                {% for i in range(3) %}
+                    <tr>
+                    {% for j in range(3) %}
+                        <td>
+                        {% if game[i][j] %}
+                            {{ game[i][j] }}
+                        {% else %}
+                            <a href="{{ url_for('play', row=i, col=j) }}">Play {{ turn }}</a>
+                        {% endif %}
+                        </td>
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                {% if status %}
+                <h2>{{ status }}</h2>                
+                {% endif %}          
+                <a href="{{ url_for('reset') }}">Reset</a><br><br>
+                <a href="{{ url_for('undo') }}">Undo</a>
+            </div>
+            
+        </div>
+        
+    </body>
+</html>
